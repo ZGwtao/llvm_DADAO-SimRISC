@@ -20,13 +20,11 @@
 namespace llvm {
 
 class SIMRISCTargetMachine : public LLVMTargetMachine {
-  
   std::unique_ptr<TargetLoweringObjectFile> TLOF;
   /* FIXME
    * SIMRISCSubtarget class is neither defined nor implemented yet.
    */
   mutable StringMap<std::unique_ptr<SIMRISCSubtarget>> SubtargetMap;
-
 public:
   SIMRISCTargetMachine(const Target &T,
 		       const Triple &TT, /* Target Triple: e.g. simrisc-unknwon-linux-elf */
@@ -55,4 +53,22 @@ public:
     return TLOF.get();
   }
 };
-}
+
+class SIMRISCPassConfig : public TargetPassConfig {
+public:
+  SIMRISCPassConfig(LLVMTargetMachine &TM, PassManagerBase &PM);
+  //!
+  //! ScheduleDAG <-- ScheduleDAGInstrs = Instruction Selection ? related
+  //!
+  /* Create an instance of "ScheduleDAGInstrs" to be run within the standard
+   * "MachineScheduler" pass for this function and target at the current opt
+   * level, return NULL to select the default (generic) machine scheduler.
+   */
+  ScheduleDAGInstrs *
+  createMachineScheduler(MachineSchedContext *C) const override;
+};
+
+} // end namespace llvm
+
+#endif // LLVM_LIB_TARGET_SIMRISC_SIMRISCTARGETMACHINE_H
+
