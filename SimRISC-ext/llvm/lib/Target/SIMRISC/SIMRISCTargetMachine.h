@@ -14,6 +14,7 @@
 #define LLVM_LIB_TARGET_SIMRISC_SIMRISCTARGETMACHINE_H
 
 #include "SIMRISCSubtarget.h"
+#include "llvm/CodeGen/TargetPassConfig.h"
 #include "llvm/Target/TargetMachine.h"
 #include <optional>
 
