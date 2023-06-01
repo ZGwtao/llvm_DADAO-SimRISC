@@ -1,4 +1,4 @@
 [submodule "llvm-x-16"]
-	path = llvm-x-16
+	path = llvm_16.0.4
 	url = https://github.com/llvm/llvm-project.git
 	branch = release/16.x
