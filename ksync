@@ -1,0 +1,7 @@
+#!/bin/bash
+
+sdir="$(pwd)/dadao-impl/"
+ddir="$(pwd)/llvm_16.0.4"
+
+rsync -r --ignore-existing "$sdir" "$ddir"
+
