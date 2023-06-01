@@ -1,4 +1,4 @@
-//===-- SIMRISCTargetMachine.h - Define TargetMachine for SIMRISC -*- C++ -*-===//
+//===-- DADAOTargetMachine.h - Define TargetMachine for DADAO -*- C++ -*-===//
 //
 // Part of the LLVM Project, under the Apache License v2.0 with LLVM Exceptions.
 // See https://llvm.org/LICENSE.txt for license information.
@@ -6,29 +6,29 @@
 //
 //===------------------------------------------------------------------------===//
 //
-// This file declares the SIMRISC specific subclass of TargetMachine.
+// This file declares the DADAO specific subclass of TargetMachine.
 //
 //===------------------------------------------------------------------------===//
 
-#ifndef LLVM_LIB_TARGET_SIMRISC_SIMRISCTARGETMACHINE_H
-#define LLVM_LIB_TARGET_SIMRISC_SIMRISCTARGETMACHINE_H
+#ifndef LLVM_LIB_TARGET_DADAO_DADAOTARGETMACHINE_H
+#define LLVM_LIB_TARGET_DADAO_DADAOTARGETMACHINE_H
 
-#include "SIMRISCSubtarget.h"
+#include "DADAOSubtarget.h"
 #include "llvm/CodeGen/TargetPassConfig.h"
 #include "llvm/Target/TargetMachine.h"
 #include <optional>
 
 namespace llvm {
 
-class SIMRISCTargetMachine : public LLVMTargetMachine {
+class DADAOTargetMachine : public LLVMTargetMachine {
   std::unique_ptr<TargetLoweringObjectFile> TLOF;
   /* FIXME
-   * SIMRISCSubtarget class is neither defined nor implemented yet.
+   * DADAOSubtarget class is neither defined nor implemented yet.
    */
-  mutable StringMap<std::unique_ptr<SIMRISCSubtarget>> SubtargetMap;
+  mutable StringMap<std::unique_ptr<DADAOSubtarget>> SubtargetMap;
 public:
-  SIMRISCTargetMachine(const Target &T,
-		       const Triple &TT, /* Target Triple: e.g. simrisc-unknwon-linux-elf */
+  DADAOTargetMachine(const Target &T,
+		       const Triple &TT, /* Target Triple: e.g. dadao-unknwon-linux-elf */
 		       StringRef CPU,
 		       StringRef FS,
 		       const TargetOptions &Options,
@@ -41,9 +41,9 @@ public:
   /* Symbol "override" means the virtual method, which is defined by base class,
    * will be replaced by the method declared below.
    */
-  const SIMRISCSubtarget *getSubtargetImpl(std::string CPU, std::string FS) const;
-  const SIMRISCSubtarget *getSubtargetImpl(const Function &F) const override;
-  const SIMRISCSubtarget *getSubtargetImpl() const;
+  const DADAOSubtarget *getSubtargetImpl(std::string CPU, std::string FS) const;
+  const DADAOSubtarget *getSubtargetImpl(const Function &F) const override;
+  const DADAOSubtarget *getSubtargetImpl() const;
 
   /* Create a pass configuration object to be used by addPassToEmitX methods for
    * generating a pipeline of CodeGen passes => "benefits passes scheduler?"
@@ -55,9 +55,9 @@ public:
   }
 };
 
-class SIMRISCPassConfig : public TargetPassConfig {
+class DADAOPassConfig : public TargetPassConfig {
 public:
-  SIMRISCPassConfig(LLVMTargetMachine &TM, PassManagerBase &PM);
+  DADAOPassConfig(LLVMTargetMachine &TM, PassManagerBase &PM);
   //!
   //! ScheduleDAG <-- ScheduleDAGInstrs = Instruction Selection ? related
   //!
@@ -71,5 +71,5 @@ public:
 
 } // end namespace llvm
 
-#endif // LLVM_LIB_TARGET_SIMRISC_SIMRISCTARGETMACHINE_H
+#endif // LLVM_LIB_TARGET_DADAO_DADAOTARGETMACHINE_H
 
