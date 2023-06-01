@@ -1,0 +1,27 @@
+From ac79c89a26b5beccece135bdd59f0dbbab5d256f Mon Sep 17 00:00:00 2001
+From: guangtaozhu <guangtaozhu@outlook.com>
+Date: Thu, 1 Jun 2023 16:10:53 +0800
+Subject: [PATCH 1/4] (llvm/cmake/config-ix.cmake) provide new native arch
+ "DADAO"
+
+Signed-off-by: guangtaozhu <guangtaozhu@outlook.com>
+---
+ llvm/cmake/config-ix.cmake | 2 ++
+ 1 file changed, 2 insertions(+)
+
+diff --git a/llvm/cmake/config-ix.cmake b/llvm/cmake/config-ix.cmake
+index b78c1b34ab8b..a99328a5ada2 100644
+--- a/llvm/cmake/config-ix.cmake
++++ b/llvm/cmake/config-ix.cmake
+@@ -474,6 +474,8 @@ elseif (LLVM_NATIVE_ARCH MATCHES "arm")
+   set(LLVM_NATIVE_ARCH ARM)
+ elseif (LLVM_NATIVE_ARCH MATCHES "avr")
+   set(LLVM_NATIVE_ARCH AVR)
++elseif (LLVM_NATIVE_ARCH MATCHES "dadao")
++  set(LLVM_NATIVE_ARCH DADAO)
+ elseif (LLVM_NATIVE_ARCH MATCHES "mips")
+   set(LLVM_NATIVE_ARCH Mips)
+ elseif (LLVM_NATIVE_ARCH MATCHES "xcore")
+-- 
+2.39.2
+

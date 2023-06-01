@@ -1,0 +1,25 @@
+From 165b6f375ff4032a41e2f0943440957b7cdaae90 Mon Sep 17 00:00:00 2001
+From: guangtaozhu <guangtaozhu@outlook.com>
+Date: Thu, 1 Jun 2023 16:14:05 +0800
+Subject: [PATCH 2/4] [llvm][CMakeLists.txt] introduce 'DADAO'
+
+Signed-off-by: guangtaozhu <guangtaozhu@outlook.com>
+---
+ llvm/CMakeLists.txt | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/llvm/CMakeLists.txt b/llvm/CMakeLists.txt
+index 8e9bc28001c5..6283484e76ff 100644
+--- a/llvm/CMakeLists.txt
++++ b/llvm/CMakeLists.txt
+@@ -429,6 +429,7 @@ set(LLVM_ALL_TARGETS
+   ARM
+   AVR
+   BPF
++  DADAO
+   Hexagon
+   Lanai
+   LoongArch
+-- 
+2.39.2
+
