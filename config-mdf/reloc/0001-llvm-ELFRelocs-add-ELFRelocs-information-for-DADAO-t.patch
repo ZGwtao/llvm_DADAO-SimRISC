@@ -1,0 +1,36 @@
+From d7f89964ece72ad44172529fc27898a27ff9d8cb Mon Sep 17 00:00:00 2001
+From: guangtaozhu <guangtaozhu@outlook.com>
+Date: Fri, 2 Jun 2023 13:26:07 +0800
+Subject: [PATCH] [llvm][ELFRelocs]: add ELFRelocs information for DADAO to
+ ELFYAML
+
+Signed-off-by: guangtaozhu <guangtaozhu@outlook.com>
+---
+ llvm/lib/ObjectYAML/ELFYAML.cpp | 4 ++++
+ 1 file changed, 4 insertions(+)
+
+diff --git a/llvm/lib/ObjectYAML/ELFYAML.cpp b/llvm/lib/ObjectYAML/ELFYAML.cpp
+index 0ca0348f36ed..c26381cb7e81 100644
+--- a/llvm/lib/ObjectYAML/ELFYAML.cpp
++++ b/llvm/lib/ObjectYAML/ELFYAML.cpp
+@@ -352,6 +352,7 @@ void ScalarEnumerationTraits<ELFYAML::ELF_EM>::enumeration(
+   ECase(EM_VE);
+   ECase(EM_CSKY);
+   ECase(EM_LOONGARCH);
++  ECase(EM_DADAO);
+ #undef ECase
+   IO.enumFallback<Hex16>(Value);
+ }
+@@ -906,6 +907,9 @@ void ScalarEnumerationTraits<ELFYAML::ELF_REL>::enumeration(
+   case ELF::EM_XTENSA:
+ #include "llvm/BinaryFormat/ELFRelocs/Xtensa.def"
+     break;
++  case ELF::EM_DADAO:
++#include "llvm/BinaryFormat/ELFRelocs/DADAO.def"
++    break;
+   default:
+     // Nothing to do.
+     break;
+-- 
+2.39.2
+
