@@ -1,0 +1,58 @@
+From b0c165436fd567acc7a5c2c0056abcae6e9e2a16 Mon Sep 17 00:00:00 2001
+From: guangtaozhu <guangtaozhu@outlook.com>
+Date: Fri, 2 Jun 2023 12:35:46 +0800
+Subject: [PATCH 2/3] [llvm][BinaryFormat]: include DADAO relocation
+ information
+
+Signed-off-by: guangtaozhu <guangtaozhu@outlook.com>
+---
+ llvm/include/llvm/BinaryFormat/ELF.h | 7 +++++++
+ llvm/lib/Object/ELF.cpp              | 7 +++++++
+ 2 files changed, 14 insertions(+)
+
+diff --git a/llvm/include/llvm/BinaryFormat/ELF.h b/llvm/include/llvm/BinaryFormat/ELF.h
+index 75f0c960beea..a444fe2306f4 100644
+--- a/llvm/include/llvm/BinaryFormat/ELF.h
++++ b/llvm/include/llvm/BinaryFormat/ELF.h
+@@ -320,6 +320,7 @@ enum {
+   EM_VE = 251,            // NEC SX-Aurora VE
+   EM_CSKY = 252,          // C-SKY 32-bit processor
+   EM_LOONGARCH = 258,     // LoongArch
++  EM_DADAO = 0x0DA0,	  // DADAO 64-bit processor
+ };
+ 
+ // Object file classes.
+@@ -698,6 +699,12 @@ enum {
+ #include "ELFRelocs/Sparc.def"
+ };
+ 
++// ELF Relocation type for DADAO.
++// (?)
++enum {
++#include "EFLRelocs/DADAO.def"
++}
++
+ // AMDGPU specific e_flags.
+ enum : unsigned {
+   // Processor selection mask for EF_AMDGPU_MACH_* values.
+diff --git a/llvm/lib/Object/ELF.cpp b/llvm/lib/Object/ELF.cpp
+index 81c9a097170d..815d2eadd629 100644
+--- a/llvm/lib/Object/ELF.cpp
++++ b/llvm/lib/Object/ELF.cpp
+@@ -180,6 +180,13 @@ StringRef llvm::object::getELFRelocationTypeName(uint32_t Machine,
+       break;
+     }
+     break;
++  case ELF::EM_DADAO: //!EM_DADAO = 0X0DA0
++    switch (Type) {
++#include "llvm/BinaryFormat/ELFRelocs/DADAO.def"
++    default:
++      break;
++    }
++    break;
+   default:
+     break;
+   }
+-- 
+2.39.2
+

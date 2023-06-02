@@ -1,0 +1,56 @@
+From cb207bd4b2b15005d7f18ee03239d6de011091e0 Mon Sep 17 00:00:00 2001
+From: guangtaozhu <guangtaozhu@outlook.com>
+Date: Fri, 2 Jun 2023 12:36:17 +0800
+Subject: [PATCH 3/3] [llvm][RelocationResolver]: include DADAO relocation
+ information
+
+Signed-off-by: guangtaozhu <guangtaozhu@outlook.com>
+---
+ llvm/lib/Object/RelocationResolver.cpp | 24 ++++++++++++++++++++++++
+ 1 file changed, 24 insertions(+)
+
+diff --git a/llvm/lib/Object/RelocationResolver.cpp b/llvm/lib/Object/RelocationResolver.cpp
+index 13a7a9851137..303d44061235 100644
+--- a/llvm/lib/Object/RelocationResolver.cpp
++++ b/llvm/lib/Object/RelocationResolver.cpp
+@@ -127,6 +127,28 @@ static uint64_t resolveBPF(uint64_t Type, uint64_t Offset, uint64_t S,
+   }
+ }
+ 
++static uint64_t resolveDADAO(uint64_t Type, uint64_t Offset, uint64_t S,
++                             uint64_t LocData, int64_t Addend) {
++  switch (Type) {
++  case ELF::R_DADAO_ABS:
++    return S + Addend;
++  default:
++    llvm_unreachable("Invalid relocation type");
++  }
++}
++//!
++//!(FIXME) Should other relocation types be included either?
++//!What will happen if we only support ABS here?
++//!
++static bool supportsDADAO(uint64_t Type) {
++  switch (Type) {
++  case ELF::R_DADAO_ABS:
++    return true;
++  default:
++    return false;
++  }
++}
++
+ static bool supportsMips64(uint64_t Type) {
+   switch (Type) {
+   case ELF::R_MIPS_32:
+@@ -772,6 +794,8 @@ getRelocationResolver(const ObjectFile &Obj) {
+       case Triple::bpfel:
+       case Triple::bpfeb:
+         return {supportsBPF, resolveBPF};
++      case Triple::dadao:
++	return {supportsDADAO, resolveDADAO};
+       case Triple::loongarch64:
+         return {supportsLoongArch, resolveLoongArch};
+       case Triple::mips64el:
+-- 
+2.39.2
+
