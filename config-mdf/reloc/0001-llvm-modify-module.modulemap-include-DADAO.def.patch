@@ -1,0 +1,25 @@
+From a4c6e94c536ce5011897778fb70e2eb158150cf5 Mon Sep 17 00:00:00 2001
+From: guangtaozhu <guangtaozhu@outlook.com>
+Date: Fri, 2 Jun 2023 15:01:35 +0800
+Subject: [PATCH] [llvm]: modify module.modulemap -> include DADAO.def
+
+Signed-off-by: guangtaozhu <guangtaozhu@outlook.com>
+---
+ llvm/include/llvm/module.modulemap | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/llvm/include/llvm/module.modulemap b/llvm/include/llvm/module.modulemap
+index 741e0a83b1b7..eef73d58e8a2 100644
+--- a/llvm/include/llvm/module.modulemap
++++ b/llvm/include/llvm/module.modulemap
+@@ -70,6 +70,7 @@ module LLVM_BinaryFormat {
+     textual header "BinaryFormat/ELFRelocs/AVR.def"
+     textual header "BinaryFormat/ELFRelocs/BPF.def"
+     textual header "BinaryFormat/ELFRelocs/CSKY.def"
++    textual header "BinaryFormat/ELFRelocs/DADAO.def"
+     textual header "BinaryFormat/ELFRelocs/Hexagon.def"
+     textual header "BinaryFormat/ELFRelocs/i386.def"
+     textual header "BinaryFormat/ELFRelocs/Lanai.def"
+-- 
+2.39.2
+
