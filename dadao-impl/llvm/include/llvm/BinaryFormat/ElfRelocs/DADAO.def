@@ -1,0 +1,14 @@
+
+#ifndef ELF_RELOC
+#error "ELF_RELOC must be defined"
+#endif
+
+ELF_RELOC(R_DADAO_NONE,          0)
+ELF_RELOC(R_DADAO_ABS,           1)
+ELF_RELOC(R_DADAO_HI18,          2)
+ELF_RELOC(R_DADAO_LO12,          3)
+ELF_RELOC(R_DADAO_CALL,         10)
+ELF_RELOC(R_DADAO_JUMP,         11)
+ELF_RELOC(R_DADAO_BRCC,         12)
+ELF_RELOC(R_DADAO_BRCC12,       13)
+
